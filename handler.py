@@ -125,14 +125,13 @@ class WooferBotCommandHandler():
             runner = record[1].lower()
             game = record[2].lower()
             category = record[3].lower()
-            url = "http://www.speedrun.com/api_records.php?game=" + game + "&amount=1500"
+            url = "http://www.speedrun.com/api_records.php?game=" + game + "&user=" + runner
             response = urllib.urlopen(url);
             data = self.lowerDict(json.load(response))
             pbTime = 0
             x = [0, 0]
             for key,value in data.values()[0][category].iteritems():
-                if 'player' in value.keys() and value['player'].lower() == runner:
-                    pbTime = value['time'] if 'timeigt' not in value.keys() else value['timeigt']
+                pbTime = value['time'] if 'timeigt' not in value.keys() else value['timeigt']
             if '.' in str(pbTime):
                 x = float(pbTime)
                 x = math.modf(x)
